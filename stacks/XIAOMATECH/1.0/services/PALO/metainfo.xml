@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>PALO</name>
+            <displayName>Baidu Palo</displayName>
+            <comment>OLAP</comment>
+            <version>0.8.2</version>
+            <components>
+                <component>
+                    <name>PALOFE</name>
+                    <displayName>Palo FE</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/fe.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+                <component>
+                    <name>PALOBE</name>
+                    <displayName>Palo BE</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/be.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                    <bulkCommands>
+                        <displayName>Palo BEs</displayName>
+                        <masterComponent>PALOBE</masterComponent>
+                    </bulkCommands>
+                </component>
+                <component>
+                    <name>PALOHDFSBROKER</name>
+                    <displayName>Palo HDFS Broker</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>0+</cardinality>
+                    <commandScript>
+                        <script>scripts/hdfs_broker.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+            </components>
+            <commandScript>
+                <script>scripts/service_check.py</script>
+                <scriptType>PYTHON</scriptType>
+                <timeout>300</timeout>
+            </commandScript>
+            <configuration-dependencies>
+                <config-type>palo-env</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>true</restartRequiredAfterChange>
+            <quickLinksConfigurations>
+                <quickLinksConfiguration>
+                    <fileName>quicklinks.json</fileName>
+                    <default>true</default>
+                </quickLinksConfiguration>
+            </quickLinksConfigurations>
+        </service>
+    </services>
+</metainfo>
