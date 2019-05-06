@@ -240,6 +240,8 @@ wget https://mirrors.aliyun.com/apache/zeppelin/zeppelin-0.8.0/zeppelin-0.8.0-bi
 wget https://mirrors.aliyun.com/apache/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz -P ./
 wget http://central.maven.org/maven2/org/apache/parquet/parquet-tools/1.11.0/parquet-tools-1.11.0.jar -P ./
 
+wget https://github.com/linkedin/cruise-control-ui/releases/download/v0.1.0/cruise-control-ui.tar.gz -P ./
+
 wget http://central.maven.org/maven2/com/hadoop/compression/hadoop-gpl-compression/0.1.0/hadoop-gpl-compression-0.1.0.jar -P ./share/hadoop/
 wget http://central.maven.org/maven2/org/apache/commons/commons-configuration2/2.4/commons-configuration2-2.4.jar -P ./share/hadoop/
 

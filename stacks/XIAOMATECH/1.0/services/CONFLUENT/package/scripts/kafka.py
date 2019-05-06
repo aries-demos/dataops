@@ -7,6 +7,30 @@ from resource_management.libraries.functions.generate_logfeeder_input_config imp
 from resource_management.libraries.functions.default import default
 from resource_management.libraries.functions.check_process_status import check_process_status
 
+import os
+download_url_base = default("/configurations/cluster-env/download_url_base",
+                            'http://assets.example.com/')
+
+
+def install_kafka_share_lib():
+    share_dir = '/usr/share/java/kafka/'
+    Directory(
+        share_dir,
+        owner='cp-kafka',
+        group='confluent',
+        create_parents=True,
+        mode=0755)
+
+    share_jar_files_conf = default("/configurations/confluent-env/share_jars", '').strip()
+    if share_jar_files_conf != '':
+        share_jar_files = share_jar_files_conf.split(',')
+        for jar_file in share_jar_files:
+            jar_file_path = share_dir + jar_file.strip()
+            if not os.path.exists(jar_file_path):
+                Execute('wget ' + download_url_base + '/share/kafka/' + jar_file + ' -O ' + jar_file_path,
+                        user='cp-kafka')
+
+
 systemd = '''
 [Unit]
 Description=Apache Kafka - broker
@@ -106,6 +130,8 @@ class Kafka(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
+        install_kafka_share_lib()
+
         Execute('rm -rf /usr/lib/systemd/system/confluent-kafka.service')
         File(
             '/usr/lib/systemd/system/confluent-kafka.service',

@@ -78,6 +78,15 @@
         <on-ambari-upgrade add="false"/>
     </property>
 
+    <property require-input="true">
+        <name>share_jars</name>
+        <value>cruise-control-metrics-reporter-2.0.42.jar</value>
+        <description>kafka share jars</description>
+        <value-attributes>
+            <empty-value-valid>true</empty-value-valid>
+        </value-attributes>
+    </property>
+
     <!-- kafka-env.sh -->
     <property>
         <name>content</name>
@@ -370,10 +379,11 @@ zookeeper.connection.timeout.ms=6000
 # Confluent Control Center and Confluent Auto Data Balancer
 # If you are using a dedicated metrics cluster, also adjust the settings
 # to point to your metrics kakfa cluster.
+
+#metric.reporters=com.linkedin.kafka.cruisecontrol.metricsreporter.CruiseControlMetricsReporter
+
 metric.reporters=io.confluent.metrics.reporter.ConfluentMetricsReporter
 confluent.metrics.reporter.bootstrap.servers={{bootstrap_servers}}
-#
-# Uncomment the following line if the metrics cluster has a single broker
 confluent.metrics.reporter.topic.replicas=1
 
 ##################### Confluent Proactive Support ######################
@@ -411,6 +421,7 @@ controlled.shutdown.enable=true
 auto.create.topics.enable=true
 background.threads=20
 compression.type=snappy
+
 
             ]]>
         </value>

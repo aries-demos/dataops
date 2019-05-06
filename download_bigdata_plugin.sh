@@ -11,7 +11,7 @@
 
 base_dir=/data/assets/share
 
-mkdir -p $base_dir/{spark,hive,presto,storm,flink,hadoop,hbase,kafkaconnector}
+mkdir -p $base_dir/{spark,hive,presto,storm,flink,hadoop,hbase,kafkaconnector,kafka}
 
 wget  http://repo1.maven.org/maven2/com/redislabs/spark-redis/2.3.1-m3/spark-redis-2.3.1-m3-jar-with-dependencies.jar -P $base_dir/spark/
 wget  http://repo1.maven.org/maven2/org/mongodb/spark/mongo-spark-connector_2.11/2.4.0/mongo-spark-connector_2.11-2.4.0.jar -P $base_dir/spark/
@@ -46,3 +46,5 @@ wget https://repo1.maven.org/maven2/io/debezium/debezium-connector-mongodb/0.9.4
 
 
 wget http://repo1.maven.org/maven2/com/yahoo/datasketches/sketches-hive/0.13.0/sketches-hive-0.13.0-with-shaded-core.jar -P $base_dir/hive/
+
+wget http://jcenter.bintray.com/com/linkedin/cruisecontrol/cruise-control-metrics-reporter/2.0.42/cruise-control-metrics-reporter-2.0.42.jar -P  $base_dir/kafka/
