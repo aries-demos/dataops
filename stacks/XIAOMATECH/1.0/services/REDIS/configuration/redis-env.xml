@@ -72,6 +72,12 @@ slowlog-log-slower-than 10000
 slowlog-max-len 128
 loglevel notice
 lua-time-limit 5000
+
+#loadmodule /usr/lib64/redis/modules/redisgraph.so
+#loadmodule /usr/lib64/redis/modules/redisearch.so
+#loadmodule /usr/lib64/redis/modules/rebloom.so
+#loadmodule /usr/lib64/redis/modules/rejson.so
+
         ]]>
         </value>
         <value-attributes>
