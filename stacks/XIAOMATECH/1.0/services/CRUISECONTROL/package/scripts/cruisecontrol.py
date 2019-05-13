@@ -5,6 +5,10 @@ from resource_management.core.source import InlineTemplate
 from resource_management.libraries.functions.check_process_status import check_process_status
 
 
+def install_cruisecontrol():
+    pass
+
+
 class CruiseControl(Script):
     pid_file = '/var/run/cruisecontrol.pid'
 
@@ -12,46 +16,43 @@ class CruiseControl(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
+        install_cruisecontrol()
 
     def configure(self, env):
         import params
         env.set_params(params)
-        File(
-            '/etc/ksql/ksql-server.properties',
-            owner='cp-ksql',
-            group='confluent',
-            mode=0644,
-            content=InlineTemplate(params.ksql_server_content))
+        File(params.conf_dir + '/cruisecontrol.properties',
+             owner=params.cruisecontrol_user,
+             group=params.user_group,
+             mode=0644,
+             content=InlineTemplate(params.cruisecontrol_content))
+        File(params.conf_dir + '/log4j.properties',
+             owner=params.cruisecontrol_user,
+             group=params.user_group,
+             mode=0644,
+             content=InlineTemplate(params.log4j_content))
 
     def start(self, env):
         import params
         env.set_params(params)
         self.configure(env)
 
-        Execute(params.install_dir + "/kafka-cruise-control-start.sh -daemon /etc/cruisecontrol/cruisecontrol.properties")
         Execute(
-            "echo `ps aux|grep '/etc/cruisecontrol/cruisecontrol.properties' | grep -v grep | awk '{print $2}'` > "
+            params.install_dir + "/kafka-cruise-control-start.sh -daemon " + params.conf_dir + "/cruisecontrol.properties")
+        Execute(
+            "echo `ps aux|grep " + params.conf_dir + "/cruisecontrol.properties' | grep -v grep | awk '{print $2}'` > "
             + self.pid_file)
 
     def stop(self, env):
         import params
         env.set_params(params)
-        Execute("systemctl stop confluent-ksql")
+        Execute("")
 
     def status(self, env):
         import params
         env.set_params(params)
-        import os
-        if not os.path.exists(self.pid_file):
-            Execute(
-                "echo `ps aux|grep '/etc/ksql/ksql-server.properties' | grep -v grep | awk '{print $2}'` > "
-                + self.pid_file)
         check_process_status(self.pid_file)
 
 
 if __name__ == "__main__":
     CruiseControl().execute()
-
-
-#/etc/cruisecontrol/log4j.properties
-#kafka-cruise-control-start.sh -daemon /etc/cruisecontrol/cruisecontrol.properties

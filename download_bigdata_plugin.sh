@@ -27,7 +27,7 @@ wget  http://repo1.maven.org/maven2/com/uber/hoodie/hoodie-hadoop-mr-bundle/0.4.
 wget  http://repo1.maven.org/maven2/com/uber/hoodie/hoodie-presto-bundle/0.4.5/hoodie-presto-bundle-0.4.5.jar $base_dir/presto/
 wget  https://github.com/xiaomatech/jars/raw/master/spark-authorizer-2.1.1.jar -P $base_dir/spark/
 wget  https://github.com/xiaomatech/jars/raw/master/spark-atlas-connector_2.11-0.1.0-SNAPSHOT.jar -P $base_dir/spark/
-
+wget http://repo1.maven.org/maven2/io/delta/delta-core_2.12/0.1.0/delta-core_2.12-0.1.0.jar -P $base_dir/spark/
 
 elk_version=7.0.0
 wget https://artifacts.elastic.co/downloads/elasticsearch-hadoop/elasticsearch-hadoop-$elk_version.zip -O /tmp/elasticsearch-hadoop-$elk_version.zip

@@ -16,9 +16,11 @@ download_url_ui = config['configurations']['cruisecontrol-env']['download_url']
 filename_ui = download_url_ui.split('/')[-1]
 version_dir_ui = filename_ui.replace('.tar.gz', '').replace('.tgz', '')
 
+conf_dir = '/etc/cruisecontrol'
+
 hostname = config['agentLevelParams']['hostname']
 
-kafka_user = config['configurations']['cruisecontrol-env']['kafka_user']
+cruisecontrol_user = config['configurations']['cruisecontrol-env']['cruisecontrol_user']
 
 user_group = config['configurations']['cluster-env']['user_group']
 java64_home = config['ambariLevelParams']['java_home']
@@ -49,3 +51,4 @@ if 'zookeeper_server_hosts' in config['clusterHostInfo']:
         zk_quorum += host + ":" + str(zookeeper_port)
 
 cruisecontrol_content = config['configurations']['cruisecontrol-env']['cruisecontrol_content']
+log4j_content = config['configurations']['cruisecontrol-env']['log4j_content']
