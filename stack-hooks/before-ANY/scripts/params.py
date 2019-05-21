@@ -33,7 +33,8 @@ from resource_management.libraries.functions.version import format_stack_version
 from resource_management.libraries.functions.expect import expect
 from resource_management.libraries.functions.get_architecture import get_architecture
 from ambari_commons.constants import AMBARI_SUDO_BINARY
-from resource_management.libraries.functions.namenode_ha_utils import get_properties_for_all_nameservices, namenode_federation_enabled
+from resource_management.libraries.functions.namenode_ha_utils import get_properties_for_all_nameservices, \
+    namenode_federation_enabled
 
 config = Script.get_config()
 tmp_dir = Script.get_tmp_dir()
@@ -117,10 +118,14 @@ datanode_max_locked_memory = config['configurations']['hdfs-site'][
 is_datanode_max_locked_memory_set = not is_empty(
     config['configurations']['hdfs-site']['dfs.datanode.max.locked.memory'])
 
-hadoop_home = stack_root +  '/hadoop'
+hadoop_home = stack_root + '/hadoop'
 hadoop_libexec_dir = hadoop_home + "/libexec"
 hadoop_lib_home = hadoop_home + '/lib'
 mapreduce_libs_path = hadoop_home + "/share/hadoop/mapreduce/*"
+
+ozone_manager_hosts = default("/clusterHostInfo/ozone_manager_hosts", [])
+has_ozone = not len(ozone_manager_hosts) == 0
+hadoop_ozone_home = stack_root + "/hadoop-ozone"
 
 if not security_enabled:
     hadoop_secure_dn_user = '""'
@@ -135,7 +140,7 @@ else:
     elif dfs_http_policy == "HTTP_AND_HTTPS":
         secure_dn_ports_are_in_use = is_secure_port(
             dfs_dn_port) or is_secure_port(dfs_dn_http_port) or is_secure_port(
-                dfs_dn_https_port)
+            dfs_dn_https_port)
     else:  # params.dfs_http_policy == "HTTP_ONLY" or not defined:
         secure_dn_ports_are_in_use = is_secure_port(
             dfs_dn_port) or is_secure_port(dfs_dn_http_port)
@@ -144,7 +149,7 @@ else:
     else:
         hadoop_secure_dn_user = '""'
 
-#hadoop params
+# hadoop params
 hdfs_log_dir_prefix = default('/configurations/hadoop-env/hdfs_log_dir_prefix',
                               '/var/log/hadoop')
 hadoop_pid_dir_prefix = default(
@@ -182,7 +187,7 @@ mapred_log_dir_prefix = default(
     "/var/log/hadoop-mapreduce")
 hadoop_env_sh_template = config['configurations']['hadoop-env']['content']
 
-#users and groups
+# users and groups
 hbase_user = config['configurations']['hbase-env']['hbase_user']
 smoke_user = config['configurations']['cluster-env']['smokeuser']
 gmetad_user = config['configurations']['ganglia-env']["gmetad_user"]
@@ -291,13 +296,13 @@ if has_hbase_masters:
     hbase_user_dirs = format(
         "/home/{hbase_user},/tmp/{hbase_user},/usr/bin/{hbase_user},/var/log/{hbase_user},{hbase_tmp_dir}"
     )
-#repo params
+# repo params
 repo_info = config['hostLevelParams']['repoInfo']
 service_repo_info = default("/hostLevelParams/service_repo_info", None)
 
 user_to_groups_dict = {}
 
-#Append new user-group mapping to the dict
+# Append new user-group mapping to the dict
 try:
     user_group_map = ast.literal_eval(
         config['clusterLevelParams']['user_groups'])
