@@ -106,7 +106,7 @@
     https://blog.csdn.net/zhaodedong/article/details/73385647
     http://tech.weli.cn/2017/12/29/dataware-intro/
 ```
-
+![datawarehouse](img/dw.jpg)
 ![datawarehouse0](img/dw0.jpg)
 ![datawarehouse1](img/dw1.jpg)
 ![datawarehouse2](img/dw2.jpg)
