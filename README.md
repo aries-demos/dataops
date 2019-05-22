@@ -115,7 +115,7 @@
 ![datawarehouse5](img/dw5.jpg)
 ![datawarehouse6](img/dw6.jpg)
 ![datawarehouse7](img/dw7.jpg)
-
+![datawarehouse8](img/dw8.jpg)
 
 ### 需要怎么样的服务器
 ```
