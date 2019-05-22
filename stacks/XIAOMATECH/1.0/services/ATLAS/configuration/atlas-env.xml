@@ -23,13 +23,13 @@
 
     <property require-input="true">
         <name>plugin_version</name>
-        <value>1.1.0</value>
+        <value>2.0.0</value>
         <description>atlas plugin version</description>
     </property>
 
     <property require-input="true">
         <name>download_url</name>
-        <value>http://assets.example.com/atlas-1.1.0.tar.gz</value>
+        <value>http://assets.example.com/atlas-2.0.0.tar.gz</value>
         <description>download url</description>
     </property>
 

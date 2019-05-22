@@ -260,9 +260,9 @@ rm -rf /tmp/hbase-2.1.4/lib/hadoop-*
 tar -czvf $repo_dir_base/hbase-2.1.4.tar.gz hbase-2.1.4
 cd $repo_dir_base
 
-wget https://mirrors.aliyun.com/apache/spark/spark-2.4.2/spark-2.4.2-bin-hadoop2.7.tgz -P ./
-tar -zxvf spark-2.4.2-bin-hadoop2.7.tgz -C /tmp/
-cp /tmp/spark-2.4.2-bin-hadoop2.7/yarn/spark-2.4.2-yarn-shuffle.jar $repo_dir_base/share/spark/
+wget https://mirrors.aliyun.com/apache/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz -P ./
+tar -zxvf spark-2.4.3-bin-hadoop2.7.tgz -C /tmp/
+cp /tmp/spark-2.4.3-bin-hadoop2.7/yarn/spark-2.4.3-yarn-shuffle.jar $repo_dir_base/share/spark/
 rm -rf /tmp/spark-*
 cd $repo_dir_base
 

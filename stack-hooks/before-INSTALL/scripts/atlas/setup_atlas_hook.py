@@ -162,7 +162,7 @@ def setup_atlas_hook(service_name, service_props, atlas_hook_filepath, owner,
     Generate the atlas-application.properties.xml file by merging the service_props with the Atlas application-properties.
     :param service_name: Service Name to identify if it is a client-only service, which will generate slightly different configs.
     :param service_props: Atlas configs specific to this service that must be merged.
-    :param atlas_hook_filepath: Config file to write, e.g., /etc/falcon/conf/atlas-application.properties.xml
+    :param atlas_hook_filepath: Config file to write, e.g., /etc/hbase/atlas-application.properties.xml
     :param owner: File owner
     :param group: File group
     """
